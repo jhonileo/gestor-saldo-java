@@ -1,64 +1,90 @@
 package Gestor_de_Saldo;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-
-
-
-
 public class Main {
 
-    public static void continuar(Scanner scanner){
-        scanner.nextLine();
-        System.out.println("Pressione ENTER para continuar...");
-        scanner.nextLine();
-    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        conta sd = new conta();
+        Conta conta = new Conta();
+
         int opcao = 0;
 
-
-        System.out.println("Bem vindo ao gestor de saldo em JAVA!");
         while (opcao != 4) {
-            System.out.println("Escolha uma das opções abaixo:");
-            System.out.println("");
-            System.out.println("Digite 1 para consultar seu saldo em conta.");
-            System.out.println("Digite 2 para fazer um deposito.");
-            System.out.println("Digite 3 para sacar seu dinheiro.");
-            System.out.println("Digite 4 para encerrar o programa");
-            System.out.println("");
+            exibirMenu();
 
             opcao = scanner.nextInt();
 
-
             switch (opcao) {
                 case 1:
-                    sd.verSaldo();
+                    System.out.println(
+                            "Saldo atual: R$ " + conta.consultarSaldo()
+                    );
                     continuar(scanner);
                     break;
+
                 case 2:
-                    System.out.println("Digite o valor do seu deposito: ");
-                    BigDecimal deposito = scanner.nextBigDecimal();
-                    System.out.println("");
-                    sd.depositar(deposito);
+                    System.out.print("Digite o valor do depósito: ");
+                    BigDecimal valorDeposito = scanner.nextBigDecimal();
+
+                    try {
+                        conta.depositar(valorDeposito);
+                        System.out.println("Depósito realizado com sucesso.");
+                        System.out.println(
+                                "Saldo atual: R$ " + conta.consultarSaldo()
+                        );
+                    } catch (IllegalArgumentException erro) {
+                        System.out.println(erro.getMessage());
+                    }
+
                     continuar(scanner);
                     break;
+
                 case 3:
-                    System.out.println("Digite o valor que deseja sacar: ");
-                    BigDecimal saque = scanner.nextBigDecimal();
-                    System.out.println("");
-                    sd.sacar(saque);
+                    System.out.print("Digite o valor do saque: ");
+                    BigDecimal valorSaque = scanner.nextBigDecimal();
+
+                    try {
+                        conta.sacar(valorSaque);
+                        System.out.println("Saque realizado com sucesso.");
+                        System.out.println(
+                                "Saldo atual: R$ " + conta.consultarSaldo()
+                        );
+                    } catch (IllegalArgumentException erro) {
+                        System.out.println(erro.getMessage());
+                    }
+
                     continuar(scanner);
                     break;
+
                 case 4:
-                    System.out.println("Encerrando o programa... Até logo!");
+                    System.out.println("Encerrando o programa...");
                     break;
+
                 default:
-                    System.out.println("Opção inválida! Tente novamente.");
-                    System.out.println("");
+                    System.out.println("Opção inválida.");
+                    continuar(scanner);
             }
         }
+
+        scanner.close();
+    }
+
+    private static void exibirMenu() {
+        System.out.println();
+        System.out.println("===== GESTOR DE SALDO =====");
+        System.out.println("1 - Consultar saldo");
+        System.out.println("2 - Depositar");
+        System.out.println("3 - Sacar");
+        System.out.println("4 - Encerrar");
+        System.out.print("Escolha uma opção: ");
+    }
+
+    private static void continuar(Scanner scanner) {
+        scanner.nextLine();
+        System.out.println();
+        System.out.println("Pressione ENTER para continuar...");
+        scanner.nextLine();
     }
 }
-
