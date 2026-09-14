@@ -18,7 +18,7 @@ Este projeto é uma aplicação de console desenvolvida para consolidar os funda
 ## 📂 Estrutura do Projeto
 O código está organizado no pacote `Gestor_de_Saldo`:
 - `Main.java`: Ponto de entrada da aplicação e controle do menu.
-- `Saldo.java`: Implementação da lógica de negócios e cálculos.
+- `conta.java`: Implementação da lógica de negócios e cálculos.
 - `MeuSaldo.java`: Interface que define o contrato das operações bancárias.
 
 ---
